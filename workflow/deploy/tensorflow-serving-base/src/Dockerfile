@@ -1,4 +1,4 @@
-ARG FROM=max-one.local:5001/jetson/nano/ml-base
+ARG FROM=helmuthva/jetson-xavier-ml-base
 FROM ${FROM}
 
 MAINTAINER Helmut Hoffer von Ankershoffen <helmuthva@googlemail.com>
@@ -21,7 +21,7 @@ RUN apt-get update && \
     mkdir -p /var/log/supervisor
 
 # Build bazel build
-ENV BAZEL_VERSION=0.24.1
+ENV BAZEL_VERSION=6.3.2
 RUN wget --quiet https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-dist.zip && \
     mkdir bazel-$BAZEL_VERSION && \
     unzip -q bazel-$BAZEL_VERSION-dist.zip -d bazel-$BAZEL_VERSION && \
@@ -50,12 +50,11 @@ ENV BAZEL_PYTHON=/opt/archiconda3/bin/python
 COPY /.bazelrc /tmp/tfs.bazelrc
 RUN mkdir -p /tensorflow-serving && \
     cd /tensorflow-serving && \
-    git clone --branch=${TF_SERVING_VERSION_GIT_BRANCH} --recurse-submodules https://github.com/tensorflow/serving . && \
-    git remote add upstream https://github.com/tensorflow/serving.git && \
+    git clone --branch=${TF_SERVING_VERSION_GIT_BRANCH} --recurse-submodules https://github.com/kh3654po/serving . && \
+    git remote add upstream https://github.com/kh3654po/serving.git && \
     if [ "${TF_SERVING_VERSION_GIT_COMMIT}" != "head" ]; then git checkout ${TF_SERVING_VERSION_GIT_COMMIT} ; fi && \
     \
     mv -f /tmp/tfs.bazelrc .bazelrc && \
-    \
     bazel build \
     --color=yes \
     --curses=yes \
