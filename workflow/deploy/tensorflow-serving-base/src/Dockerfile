@@ -37,7 +37,7 @@ WORKDIR /
 ENV TF_SERVING_VERSION_GIT_BRANCH=master
 ENV TF_SERVING_VERSION_GIT_COMMIT=master
 # TensorRT version as provided by ml-base
-ENV TF_TENSORRT_VERSION=5.1.6
+ENV TF_TENSORRT_VERSION=8.2.1
 # CUDNN version as provided by ml-base
 ENV CUDNN_VERSION=7.5.0
 # CUDA as provided by ml-base
