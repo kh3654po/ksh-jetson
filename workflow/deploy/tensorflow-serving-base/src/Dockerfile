@@ -17,6 +17,7 @@ ENV JETSON_MODEL ${JETSON_MODEL:-nano}
 # Install supervisord
 RUN apt-get update && \
     apt-get install -y supervisor && \
+    apt-get install openjdk-11-jdk && \
     apt-get clean && \
     mkdir -p /var/log/supervisor
 
