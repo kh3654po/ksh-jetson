@@ -57,6 +57,7 @@ RUN mkdir -p /tensorflow-serving && \
     \
     mv -f /tmp/tfs.bazelrc .bazelrc && \
     bazel build \
+    --experimental_repo_remote_exec \
     --color=yes \
     --curses=yes \
     --jobs="${JOBS}" \
